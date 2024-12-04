@@ -1,24 +1,34 @@
-import React from 'react'
-
+import React, { useState } from 'react' 
+import { FaSearch } from "react-icons/fa";
+import {Link, useLocation} from 'react-router-dom'
 function SubHeader() {
+    const [Active,setActive]=useState(0)
+    const location=useLocation();
+    console.log(location,"Dsd")
     const navitem=[
         {
-            title:"Home"
+            title:"Home",
+            path:"/"
         },
         {
-            title:"Page"
+            title:"Page",
+            path:'/page'
         }, 
         {
-            title:"Courses"
+            title:"Courses",
+            path:'/courses'
         },
          {
-            title:"Instructors"
+            title:"Instructors",
+            path:"/instructor"
         },
         {
-            title:"Blog"
+            title:"Blog",
+            path:'/blog'
         }, 
         {
-            title:"contact"
+            title:"contact",
+            path:"/contact"
         },
     ]
   return (
@@ -26,18 +36,29 @@ function SubHeader() {
       <div className='flex items-center py-4 justify-between px-5'>
         <div className='font-bold text-2xl'>Clever</div>
 
-        <div className='flex  justify-between items-center'>
+        <div className='flex   gap-44 justify-between items-center'>
             <div className='flex gap-3 items-center'>
                 {
                     navitem.map((val,i)=>{
                         return(
+                            <Link key={i} to={val.path} className={`text-sm 
+                            ${val.path===location.pathname?"text-primary":' text-gray-400'}
+                            font-medium`}>
+                                <div onClick={()=>{
+                                    setActive(i)
+                                }}>
 
-                            <div key={i} className='text-sm text-gray-400 font-medium'>{val.title}</div>
+                                {val.title}
+                                </div>
+                                </Link>
                         )
                     })
                 }
             </div>
-            <div>search</div>
+            <div className='flex p-1 border items-center gap-3 rounded-md'>
+                <FaSearch />
+                <input type='text' placeholder='search' className='outline-none py-1 px-4 ' />
+            </div>
         </div>
 
         <div className=' font-bold'>
